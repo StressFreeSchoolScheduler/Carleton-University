@@ -1,18 +1,4 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Schedule Generator Demo</title>
-</head>
-<body>
-
-<h1>Demo: Preloaded Aerospace Schedule</h1>
-<p>This demo is preloaded with a real 3rd‑year Aerospace Engineering schedule so you can test filters instantly.</p>
-
-<!-- Your generator UI goes here -->
-<div id="app"></div>
-
-<script>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -134,18 +120,6 @@
 </header>
 
 <div class="container">
-
-    <!-- ⭐ NEW: Paste Courses -->
-    <div class="section">
-        <h2>Paste Your Course Text</h2>
-        <textarea id="courseInput" 
-                  placeholder="Paste your course list here..."
-                  style="width:100%; height:180px; padding:12px; font-size:15px;"></textarea>
-        <button onclick="parseCourses()" 
-                style="width:100%; padding:14px; margin-top:10px; background:#4a6cf7; color:white; border:none; border-radius:8px; font-size:18px;">
-            Load Courses
-        </button>
-    </div>
 
     <div class="section">
         <h2>Class Time Preference (Optional)</h2>
@@ -292,6 +266,102 @@ document.getElementById("confirmBlockedTime").onclick = () => {
   document.getElementById("blockedPanel").style.display = "none"; // close panel
 };
 
+const demoCourses = [
+    {
+        code: "AERO 3700",
+        sections: [
+            { name: "A", times: [
+                { day: "Mon", start: "11:35", end: "12:55" },
+                { day: "Wed", start: "11:35", end: "12:55" }
+            ]},
+            { name: "L1", times: [
+                { day: "Wed", start: "17:35", end: "18:25" }
+            ]}
+        ]
+    },
+    {
+        code: "ECOR 3800",
+        sections: [
+            { name: "A", times: [
+                { day: "Fri", start: "11:35", end: "14:25" }
+            ]},
+            { name: "B", times: [
+                { day: "Tue", start: "08:35", end: "09:55" },
+                { day: "Thu", start: "08:35", end: "09:55" }
+            ]}
+        ]
+    },
+    {
+        code: "MAAE 3004",
+        sections: [
+            { name: "A", times: [
+                { day: "Tue", start: "13:05", end: "14:25" },
+                { day: "Thu", start: "13:05", end: "14:25" }
+            ]},
+            { name: "L1", times: [{ day: "Mon", start: "09:35", end: "11:25" }]},
+            { name: "L2", times: [{ day: "Fri", start: "09:35", end: "11:25" }]},
+            { name: "L3", times: [{ day: "Fri", start: "16:05", end: "17:55" }]},
+            { name: "L4", times: [{ day: "Tue", start: "14:35", end: "16:25" }]},
+            { name: "L5", times: [{ day: "Wed", start: "09:35", end: "11:25" }]},
+            { name: "L6", times: [{ day: "Fri", start: "11:35", end: "13:25" }]}
+        ]
+    },
+    {
+        code: "MAAE 3300",
+        sections: [
+            { name: "A", times: [
+                { day: "Mon", start: "08:35", end: "11:25" }
+            ]},
+            { name: "B", times: [
+                { day: "Wed", start: "14:35", end: "15:55" },
+                { day: "Fri", start: "14:35", end: "15:55" }
+            ]},
+            { name: "L1", times: [{ day: "Tue", start: "14:35", end: "17:25" }]},
+            { name: "L2", times: [{ day: "Thu", start: "14:35", end: "17:25" }]},
+            { name: "L3", times: [{ day: "Wed", start: "11:35", end: "14:25" }]},
+            { name: "L4", times: [{ day: "Tue", start: "11:35", end: "14:25" }]},
+            { name: "L5", times: [{ day: "Mon", start: "18:05", end: "20:55" }]}
+        ]
+    },
+    {
+        code: "MATH 3705",
+        sections: [
+            { name: "A", times: [
+                { day: "Tue", start: "11:35", end: "12:55" },
+                { day: "Thu", start: "11:35", end: "12:55" }
+            ]},
+            { name: "B", times: [
+                { day: "Mon", start: "08:35", end: "09:55" },
+                { day: "Wed", start: "08:35", end: "09:55" }
+            ]},
+            { name: "AT", times: [{ day: "Thu", start: "17:35", end: "18:25" }]},
+            { name: "BT", times: [{ day: "Mon", start: "14:35", end: "15:25" }]}
+        ]
+    },
+    {
+        code: "SYSC 3600",
+        sections: [
+            { name: "A", times: [
+                { day: "Tue", start: "16:05", end: "17:25" },
+                { day: "Thu", start: "16:05", end: "17:25" }
+            ]},
+            { name: "B", times: [
+                { day: "Tue", start: "10:05", end: "11:25" },
+                { day: "Thu", start: "10:05", end: "11:25" }
+            ]},
+            { name: "L1", times: [{ day: "Mon", start: "11:35", end: "14:25" }]},
+            { name: "L2", times: [{ day: "Mon", start: "14:35", end: "17:25" }]},
+            { name: "L3", times: [{ day: "Mon", start: "08:35", end: "11:25" }]},
+            { name: "L4", times: [{ day: "Thu", start: "11:35", end: "14:25" }]},
+            { name: "L5", times: [{ day: "Fri", start: "08:35", end: "11:25" }]},
+            { name: "L6", times: [{ day: "Wed", start: "08:35", end: "11:25" }]},
+            { name: "L7", times: [{ day: "Fri", start: "11:35", end: "14:25" }]},
+            { name: "L8", times: [{ day: "Fri", start: "14:35", end: "17:25" }]},
+            { name: "L9", times: [{ day: "Wed", start: "11:35", end: "14:25" }]}
+        ]
+    }
+];
+
     
 /* ============================================================
    CLEAN FILTER SYSTEM
@@ -374,13 +444,9 @@ function updateBlockedDisplay() {
 /* ============================================================
    UNIVERSAL NORTH-AMERICAN COURSE PARSER
 ============================================================ */
-function parseCourses() {
-    const raw = document.getElementById("courseInput").value;
-
-    if (!raw.trim()) {
-        alert("Please paste your course text first.");
-        return;
-    }
+// DEMO: Hardcoded Aerospace Courses
+window.courses = demoCourses;
+generateSchedules();
 
     const lines = raw.split("\n");
     let cleaned = [];
@@ -1204,119 +1270,6 @@ function generateSchedule() {
     displaySchedules(ranked);
 }
 
-
-</script>
-
-</body>
-</html>
-</script>
-
-<script>
-// ------------------------------
-// 2. Replace your course-loading logic with this hardcoded demo
-// ------------------------------
-
-const demoCourses = [
-    {
-        code: "AERO 3700",
-        sections: [
-            { name: "A", times: [
-                { day: "Mon", start: "11:35", end: "12:55" },
-                { day: "Wed", start: "11:35", end: "12:55" }
-            ]},
-            { name: "L1", times: [
-                { day: "Wed", start: "17:35", end: "18:25" }
-            ]}
-        ]
-    },
-    {
-        code: "ECOR 3800",
-        sections: [
-            { name: "A", times: [
-                { day: "Fri", start: "11:35", end: "14:25" }
-            ]},
-            { name: "B", times: [
-                { day: "Tue", start: "08:35", end: "09:55" },
-                { day: "Thu", start: "08:35", end: "09:55" }
-            ]}
-        ]
-    },
-    {
-        code: "MAAE 3004",
-        sections: [
-            { name: "A", times: [
-                { day: "Tue", start: "13:05", end: "14:25" },
-                { day: "Thu", start: "13:05", end: "14:25" }
-            ]},
-            { name: "L1", times: [{ day: "Mon", start: "09:35", end: "11:25" }]},
-            { name: "L2", times: [{ day: "Fri", start: "09:35", end: "11:25" }]},
-            { name: "L3", times: [{ day: "Fri", start: "16:05", end: "17:55" }]},
-            { name: "L4", times: [{ day: "Tue", start: "14:35", end: "16:25" }]},
-            { name: "L5", times: [{ day: "Wed", start: "09:35", end: "11:25" }]},
-            { name: "L6", times: [{ day: "Fri", start: "11:35", end: "13:25" }]}
-        ]
-    },
-    {
-        code: "MAAE 3300",
-        sections: [
-            { name: "A", times: [
-                { day: "Mon", start: "08:35", end: "11:25" }
-            ]},
-            { name: "B", times: [
-                { day: "Wed", start: "14:35", end: "15:55" },
-                { day: "Fri", start: "14:35", end: "15:55" }
-            ]},
-            { name: "L1", times: [{ day: "Tue", start: "14:35", end: "17:25" }]},
-            { name: "L2", times: [{ day: "Thu", start: "14:35", end: "17:25" }]},
-            { name: "L3", times: [{ day: "Wed", start: "11:35", end: "14:25" }]},
-            { name: "L4", times: [{ day: "Tue", start: "11:35", end: "14:25" }]},
-            { name: "L5", times: [{ day: "Mon", start: "18:05", end: "20:55" }]}
-        ]
-    },
-    {
-        code: "MATH 3705",
-        sections: [
-            { name: "A", times: [
-                { day: "Tue", start: "11:35", end: "12:55" },
-                { day: "Thu", start: "11:35", end: "12:55" }
-            ]},
-            { name: "B", times: [
-                { day: "Mon", start: "08:35", end: "09:55" },
-                { day: "Wed", start: "08:35", end: "09:55" }
-            ]},
-            { name: "AT", times: [{ day: "Thu", start: "17:35", end: "18:25" }]},
-            { name: "BT", times: [{ day: "Mon", start: "14:35", end: "15:25" }]}
-        ]
-    },
-    {
-        code: "SYSC 3600",
-        sections: [
-            { name: "A", times: [
-                { day: "Tue", start: "16:05", end: "17:25" },
-                { day: "Thu", start: "16:05", end: "17:25" }
-            ]},
-            { name: "B", times: [
-                { day: "Tue", start: "10:05", end: "11:25" },
-                { day: "Thu", start: "10:05", end: "11:25" }
-            ]},
-            { name: "L1", times: [{ day: "Mon", start: "11:35", end: "14:25" }]},
-            { name: "L2", times: [{ day: "Mon", start: "14:35", end: "17:25" }]},
-            { name: "L3", times: [{ day: "Mon", start: "08:35", end: "11:25" }]},
-            { name: "L4", times: [{ day: "Thu", start: "11:35", end: "14:25" }]},
-            { name: "L5", times: [{ day: "Fri", start: "08:35", end: "11:25" }]},
-            { name: "L6", times: [{ day: "Wed", start: "08:35", end: "11:25" }]},
-            { name: "L7", times: [{ day: "Fri", start: "11:35", end: "14:25" }]},
-            { name: "L8", times: [{ day: "Fri", start: "14:35", end: "17:25" }]},
-            { name: "L9", times: [{ day: "Wed", start: "11:35", end: "14:25" }]}
-        ]
-    }
-];
-
-// Auto-load demo courses
-loadCourses(demoCourses);
-
-// Auto-generate schedules immediately
-generateSchedules();
 
 </script>
 
